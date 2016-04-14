@@ -4,8 +4,8 @@ let child = require('child_process');
 let gulp = require('gulp');
 let util = require('gulp-util');
 let sync = require('gulp-sync')(gulp).sync;
-var notifier = require('node-notifier');
-var reload = require('gulp-livereload');
+let notifier = require('node-notifier');
+let reload = require('gulp-livereload');
 
 let env = require('./env.json');
 let server = null;
@@ -43,11 +43,11 @@ gulp.task('server:build', () => {
 
 	if (build.stderr.length) {
 		// error building go files
-		var lines = build.stderr.toString()
+		let lines = build.stderr.toString()
 			.split('\n').filter(function(line) {
 				return line.length;
 			});
-		for (var l in lines) {
+		for (let l in lines) {
 			util.log(util.colors.red(
 				'Error (go install): ' + lines[l]
 			));
@@ -74,8 +74,8 @@ gulp.task('server:spawn', () => {
 	});
 
 	server.stdout.on('data', function(data) {
-		var lines = data.toString().split('\n');
-		for (var l in lines) {
+		let lines = data.toString().split('\n');
+		for (let l in lines) {
 			if (lines[l].length) util.log(lines[l]);
 		}
 	});
