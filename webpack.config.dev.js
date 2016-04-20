@@ -25,7 +25,7 @@ module.exports = {
 				test: /\.jsx?$/,
 				loaders: ['eslint-loader'],
 				exclude: /node_modules/,
-				include: __dirname + '/client/src'
+				include: path.join(__dirname, 'client', 'src')
 			}
 		],
 		loaders: [
@@ -33,7 +33,7 @@ module.exports = {
 				test: /\.jsx?$/,
 				loaders: ['babel-loader'],
 				exclude: /node_modules/,
-				include: __dirname + '/client/src'
+				include: path.join(__dirname, 'client', 'src')
 			}
 		]
 	}
