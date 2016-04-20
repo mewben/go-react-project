@@ -5,3 +5,5 @@ import:
   - engine/fasthttp
   - middleware
 - package: github.com/mewben/config-echo
+excludeDirs:
+- node_modules
