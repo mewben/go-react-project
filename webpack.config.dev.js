@@ -1,10 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
 	devtool: 'cheap-module-eval-source-map',
 	entry: [
-		'webpack-hot-middleware/client',
+		'webpack-hot-middleware/client?reload=true',
 		'./client/src/index'
 	],
 	output: {
@@ -14,10 +15,16 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		new webpack.NoErrorsPlugin()
 	],
 	resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['', '.js', '.jsx', '.scss', '.css'],
+		alias: {
+			styles: path.resolve(__dirname, 'client', 'assets', 'scss'),
+			root: __dirname
+		}
 	},
 	module: {
 		preLoaders: [
@@ -34,7 +41,16 @@ module.exports = {
 				loaders: ['babel-loader'],
 				exclude: /node_modules/,
 				include: path.join(__dirname, 'client', 'src')
+			}, {
+				test: /\.s?css$/,
+				loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+			}, {
+				test: /\.json$/,
+				loader: 'json-loader'
 			}
 		]
+	},
+	postcss: function() {
+		return [autoprefixer];
 	}
 };

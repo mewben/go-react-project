@@ -20,7 +20,7 @@ Go (Golang) + React Project development using Gulp + webpack-dev-server
 
   ```
     npm install
-    glide update
+    glide install
   ```
 
 4. Run dev

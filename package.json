@@ -11,6 +11,7 @@
   "author": "Melvin Soldia <melvinsoldia@gmail.com> (http://twitter.com/soldio)",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.4",
@@ -40,7 +41,7 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
-    "react-router": "^2.0.1",
+    "react-router": "^2.4.0",
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
     "redux-logger": "^2.6.1",
