@@ -5,6 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	entry: [
+		'babel-polyfill',
 		'./client/src/index'
 	],
 	output: {
@@ -20,8 +21,8 @@ module.exports = {
 	},
 	plugins: [
 		new ExtractTextPlugin('main.min.css'),
-		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.DedupePlugin(),
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		new webpack.DefinePlugin({
 			'process.env': {
@@ -30,7 +31,9 @@ module.exports = {
 		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compressor: {
-				warnings: false
+				warnings: false,
+				unused: true,
+				dead_code: true
 			}
 		})
 	],
@@ -38,9 +41,19 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				loaders: ['babel-loader'],
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-				include: path.join(__dirname, 'client', 'src')
+				include: path.join(__dirname, 'client', 'src'),
+				query: {
+					cacheDirectory: true,
+					plugins: ['transform-runtime'],
+					presets: ['es2015', 'react', 'stage-0'],
+					env: {
+						production: {
+							presets: ['react-optimize']
+						}
+					}
+				}
 			}, {
 				test: /\.s?css$/,
 				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader')

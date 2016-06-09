@@ -45,9 +45,18 @@ func main() {
 	app := echo.New()
 
 	app.Use(middleware.Recover())
-	app.Use(middleware.Logger())
 	app.Use(middleware.Gzip())
-	app.Use(middleware.Static("public"))
+	app.Use(middleware.Secure())
+	app.Use(middleware.BodyLimit("100K"))
+
+	if config.Mode == "dev" {
+		// Enable Debug
+		app.Use(middleware.Logger())
+		app.SetDebug(true)
+	}
+
+	app.File("/*", "public/index.html")
+	app.Static("/assets", "public/assets")
 
 	app.Run(fasthttp.New(config.Port))
 }

@@ -5,7 +5,8 @@ var autoprefixer = require('autoprefixer');
 module.exports = {
 	devtool: 'cheap-module-eval-source-map',
 	entry: [
-		'webpack-hot-middleware/client?reload=true',
+		'babel-polyfill',
+		'webpack-hot-middleware/client?path=/__webpack_hmr',
 		'./client/src/index'
 	],
 	output: {
@@ -38,9 +39,19 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				loaders: ['babel-loader'],
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-				include: path.join(__dirname, 'client', 'src')
+				include: path.join(__dirname, 'client', 'src'),
+				query: {
+					cacheDirectory: true,
+					plugins: ['transform-runtime'],
+					presets: ['es2015', 'react', 'stage-0'],
+					env: {
+						production: {
+							presets: ['react-optimize']
+						}
+					}
+				}
 			}, {
 				test: /\.s?css$/,
 				loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
