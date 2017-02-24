@@ -1,6 +1,9 @@
 # Go-React-Project
 Go (Golang) + React Project development using Gulp + webpack-dev-server
 
+## (UPDATE 2017)
+This repo is not maintained anymore. I now use create-react-app for react, and a different repo for golang as API server.
+
 ### Pre Installation
 - npm
 - go (1.6+)
